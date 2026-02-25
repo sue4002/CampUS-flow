@@ -6,12 +6,12 @@ type Tab = "all" | "lost" | "found";
 
 // Category-specific fallback images (reliable, category-matched)
 const categoryFallbacks: Record<string, string> = {
-  phone: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=300&fit=crop",
-  id: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400&h=300&fit=crop",
-  bottle: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&h=300&fit=crop",
-  umbrella: "https://images.unsplash.com/photo-1534309466160-70b22cc6254b?w=400&h=300&fit=crop",
-  bag: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop",
-  default: "https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=400&h=300&fit=crop",
+  phone: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&h=400&fit=crop",
+  id: "https://images.unsplash.com/photo-1616439249898-de21e2fbbe93?w=600&h=400&fit=crop",
+  bottle: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&h=400&fit=crop",
+  umbrella: "https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?w=600&h=400&fit=crop",
+  bag: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=400&fit=crop",
+  default: "https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=600&h=400&fit=crop",
 };
 
 const getCategoryFromTitle = (title: string): string => {
