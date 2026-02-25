@@ -30,7 +30,10 @@ const CanteenModule = () => {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-foreground">🍔 Canteen</h2>
+        <div>
+          <h2 className="text-2xl font-bold text-foreground">🍔 Canteen</h2>
+          <p className="text-primary/70 text-sm font-light mt-1">What can we get you?</p>
+        </div>
         {cartCount > 0 && (
           <div className="flex items-center gap-2 px-4 py-2 rounded-xl glass">
             <ShoppingCart size={18} className="text-primary" />
