@@ -14,11 +14,19 @@ const Index = () => {
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Background */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroBg})`, filter: "blur(20px)", transform: "scale(1.1)" }}
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `url(${heroBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+          backgroundRepeat: "no-repeat",
+          filter: "blur(20px)",
+          transform: "scale(1.1)",
+        }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/80 to-background" />
-      <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 40%, hsl(0 72% 70% / 0.08) 0%, transparent 60%)" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, hsl(0 6% 7% / 0.85), hsl(0 6% 7% / 0.7) 50%, hsl(0 6% 7% / 0.95))" }} />
+      <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 40%, hsl(0 72% 70% / 0.12) 0%, transparent 55%)" }} />
 
       {/* Content */}
       <motion.div
