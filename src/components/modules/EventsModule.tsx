@@ -24,7 +24,8 @@ const EventsModule = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-foreground mb-6">🎉 Events</h2>
+      <h2 className="text-2xl font-bold text-foreground">🎉 Events</h2>
+      <p className="text-primary/70 text-sm font-light mt-1 mb-6">What's happening on campus?</p>
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">

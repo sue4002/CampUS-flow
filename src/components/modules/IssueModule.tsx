@@ -27,7 +27,8 @@ const IssueModule = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-foreground mb-6">🛠 Issue Reporting</h2>
+      <h2 className="text-2xl font-bold text-foreground">🛠 Issue Reporting</h2>
+      <p className="text-primary/70 text-sm font-light mt-1 mb-6">Problem dikha? Report karo.</p>
 
       {/* Form */}
       <motion.form
