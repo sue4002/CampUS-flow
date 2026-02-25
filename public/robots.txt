@@ -12,3 +12,8 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# ----------------------------------
+# CampUs Robots.txt
+# Allows indexing of public pages
+# ----------------------------------
