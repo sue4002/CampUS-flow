@@ -24,3 +24,7 @@ export default tseslint.config(
     },
   },
 );
+/**
+ * CampUs — Smart Campus Services Hub
+ * Project Configuration File
+ */
