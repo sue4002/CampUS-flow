@@ -10,10 +10,10 @@ import LostFoundModule from "@/components/modules/LostFoundModule";
 import EventsModule from "@/components/modules/EventsModule";
 
 const cards = [
-  { id: "canteen", title: "Canteen", desc: "Order food & beverages", img: canteenImg },
-  { id: "issues", title: "Issue Reporting", desc: "Report campus issues", img: issueImg },
-  { id: "lost", title: "Lost & Found", desc: "Find lost belongings", img: lostImg },
-  { id: "events", title: "Events", desc: "Discover campus events", img: eventsImg },
+  { id: "canteen", title: "Canteen", desc: "What can we get you?", img: canteenImg },
+  { id: "issues", title: "Issue Reporting", desc: "Problem dikha? Report karo.", img: issueImg },
+  { id: "lost", title: "Lost & Found", desc: "Kho gaye hum kahan?", img: lostImg },
+  { id: "events", title: "Events", desc: "What's happening on campus?", img: eventsImg },
 ];
 
 const Dashboard = () => {
@@ -28,7 +28,7 @@ const Dashboard = () => {
           className="mb-8"
         >
           <h1 className="text-3xl font-bold text-foreground">Hi, Student 👋</h1>
-          <p className="text-muted-foreground mt-1">Find. Fix. Eat. Repeat.</p>
+          <p className="text-primary/80 text-lg font-medium mt-1">Find. Fix. Eat. Repeat.</p>
         </motion.div>
 
         <AnimatePresence mode="wait">

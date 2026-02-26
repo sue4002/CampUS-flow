@@ -20,9 +20,3 @@
   },
   "include": ["vite.config.ts"]
 }
-{
-  "_comment": "CampUs — Smart Campus Services Hub configuration",
-
-  "name": "campus-app",
-  "version": "1.0.0"
-}

@@ -1,12 +1,14 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { ShoppingCart, Clock, Star } from "lucide-react";
+import { Clock, Star } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 const todaysSpecial = {
+  id: 0,
   name: "Butter Chicken Thali",
   image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&h=400&fit=crop",
   prepTime: "20 min",
   rating: 4.8,
+  price: 180,
 };
 
 const menuItems = [
@@ -19,13 +21,7 @@ const menuItems = [
 ];
 
 const CanteenModule = () => {
-  const [cart, setCart] = useState<Record<number, number>>({});
-
-  const addToCart = (id: number) => {
-    setCart((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
-  };
-
-  const cartCount = Object.values(cart).reduce((a, b) => a + b, 0);
+  const { addItem, totalItems } = useCart();
 
   return (
     <div>
@@ -34,10 +30,9 @@ const CanteenModule = () => {
           <h2 className="text-2xl font-bold text-foreground">🍔 Canteen</h2>
           <p className="text-primary/70 text-sm font-light mt-1">What can we get you?</p>
         </div>
-        {cartCount > 0 && (
+        {totalItems > 0 && (
           <div className="flex items-center gap-2 px-4 py-2 rounded-xl glass">
-            <ShoppingCart size={18} className="text-primary" />
-            <span className="text-sm font-semibold">{cartCount} items</span>
+            <span className="text-sm font-semibold">{totalItems} items in cart</span>
           </div>
         )}
       </div>
@@ -60,10 +55,11 @@ const CanteenModule = () => {
             <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
               <span className="flex items-center gap-1"><Clock size={14} /> {todaysSpecial.prepTime}</span>
               <span className="flex items-center gap-1"><Star size={14} className="text-primary" /> {todaysSpecial.rating}</span>
+              <span className="font-bold text-primary">₹{todaysSpecial.price}</span>
             </div>
           </div>
           <button
-            onClick={() => addToCart(0)}
+            onClick={() => addItem({ id: todaysSpecial.id, name: todaysSpecial.name, price: todaysSpecial.price })}
             className="px-5 py-2 rounded-xl gradient-primary text-primary-foreground text-sm font-bold transition-all active:scale-95"
           >
             Add
@@ -96,7 +92,7 @@ const CanteenModule = () => {
                 </span>
                 {item.available && (
                   <button
-                    onClick={() => addToCart(item.id)}
+                    onClick={() => addItem({ id: item.id, name: item.name, price: item.price })}
                     className="px-3 py-1.5 rounded-lg gradient-primary text-primary-foreground text-xs font-bold transition-all active:scale-95"
                   >
                     Add

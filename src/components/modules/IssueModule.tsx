@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Camera, MapPin, Send } from "lucide-react";
+import { toast } from "sonner";
 
 const categories = ["Electrical", "Plumbing", "Furniture", "Cleanliness", "IT/Network", "Other"];
-
 const statusSteps = ["Reported", "Assigned", "Resolved"];
 
-const existingIssues = [
+interface Issue {
+  id: number;
+  title: string;
+  category: string;
+  status: number;
+  date: string;
+}
+
+const defaultIssues: Issue[] = [
   { id: 1, title: "Broken fan in Room 204", category: "Electrical", status: 1, date: "2025-02-20" },
   { id: 2, title: "Water leakage in washroom", category: "Plumbing", status: 2, date: "2025-02-18" },
   { id: 3, title: "WiFi not working in Block C", category: "IT/Network", status: 0, date: "2025-02-24" },
@@ -15,14 +23,24 @@ const existingIssues = [
 const IssueModule = () => {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [issues, setIssues] = useState<Issue[]>(defaultIssues);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    if (!description || !category) return;
+
+    const newIssue: Issue = {
+      id: Date.now(),
+      title: description,
+      category,
+      status: 0,
+      date: new Date().toISOString().split("T")[0],
+    };
+
+    setIssues((prev) => [newIssue, ...prev]);
     setCategory("");
     setDescription("");
+    toast("✅ Issue reported successfully");
   };
 
   return (
@@ -30,7 +48,6 @@ const IssueModule = () => {
       <h2 className="text-2xl font-bold text-foreground">🛠 Issue Reporting</h2>
       <p className="text-primary/70 text-sm font-light mt-1 mb-6">Problem dikha? Report karo.</p>
 
-      {/* Form */}
       <motion.form
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -73,21 +90,16 @@ const IssueModule = () => {
         >
           <Send size={16} /> Submit Report
         </button>
-
-        {submitted && (
-          <p className="text-center text-sm text-green-400">✅ Issue reported successfully!</p>
-        )}
       </motion.form>
 
-      {/* Existing Issues */}
       <h3 className="text-lg font-semibold text-foreground mb-4">Your Reports</h3>
       <div className="space-y-3">
-        {existingIssues.map((issue, i) => (
+        {issues.map((issue, i) => (
           <motion.div
             key={issue.id}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
+            transition={{ delay: i * 0.05 }}
             className="rounded-xl bg-card border border-border p-4"
           >
             <div className="flex justify-between items-start mb-3">
@@ -96,7 +108,6 @@ const IssueModule = () => {
                 <p className="text-xs text-muted-foreground mt-0.5">{issue.category} · {issue.date}</p>
               </div>
             </div>
-            {/* Status tracker */}
             <div className="flex items-center gap-1">
               {statusSteps.map((step, idx) => (
                 <div key={step} className="flex items-center gap-1 flex-1">

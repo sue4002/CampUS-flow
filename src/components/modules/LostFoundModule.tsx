@@ -4,14 +4,13 @@ import { MapPin, Calendar, Phone } from "lucide-react";
 
 type Tab = "all" | "lost" | "found";
 
-// Category-specific fallback images (reliable, category-matched)
+const FALLBACK_IMAGE = "https://img.sanishtech.com/u/923f0104-f7c3-4739-b9ed-d7b73bd0c53a.png";
+
 const categoryFallbacks: Record<string, string> = {
   phone: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&h=400&fit=crop",
   id: "https://images.unsplash.com/photo-1616439249898-de21e2fbbe93?w=600&h=400&fit=crop",
   bottle: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&h=400&fit=crop",
-  umbrella: "https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?w=600&h=400&fit=crop",
   bag: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=400&fit=crop",
-  default: "https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=600&h=400&fit=crop",
 };
 
 const getCategoryFromTitle = (title: string): string => {
@@ -19,33 +18,32 @@ const getCategoryFromTitle = (title: string): string => {
   if (lower.includes("phone") || lower.includes("iphone") || lower.includes("samsung") || lower.includes("mobile")) return "phone";
   if (lower.includes("id") || lower.includes("card")) return "id";
   if (lower.includes("bottle") || lower.includes("water")) return "bottle";
-  if (lower.includes("umbrella")) return "umbrella";
   if (lower.includes("bag") || lower.includes("backpack")) return "bag";
   return "default";
 };
 
 const getCategoryImage = (title: string) => {
   const cat = getCategoryFromTitle(title);
-  return categoryFallbacks[cat] || categoryFallbacks.default;
+  return categoryFallbacks[cat] || FALLBACK_IMAGE;
 };
 
 const items = [
   { id: 1, name: "iPhone 13", type: "lost" as const, desc: "Space grey, cracked screen protector", location: "Library 2nd Floor", date: "2025-02-22", image: categoryFallbacks.phone },
   { id: 2, name: "Student ID Card", type: "found" as const, desc: "Name: Rahul Sharma, B.Tech CSE", location: "Canteen", date: "2025-02-23", image: categoryFallbacks.id },
   { id: 3, name: "Water Bottle", type: "lost" as const, desc: "Blue Milton 1L bottle with stickers", location: "Lab Block A", date: "2025-02-21", image: categoryFallbacks.bottle },
-  { id: 4, name: "Umbrella", type: "found" as const, desc: "Black folding umbrella", location: "Bus Depot", date: "2025-02-24", image: categoryFallbacks.umbrella },
-  { id: 5, name: "Backpack", type: "lost" as const, desc: "Grey Wildcraft bag with laptop", location: "Multipurpose Ground", date: "2025-02-20", image: categoryFallbacks.bag },
+  { id: 4, name: "Backpack", type: "lost" as const, desc: "Grey Wildcraft bag with laptop", location: "Multipurpose Ground", date: "2025-02-20", image: categoryFallbacks.bag },
 ];
 
 const LostFoundModule = () => {
   const [tab, setTab] = useState<Tab>("all");
-
   const filtered = tab === "all" ? items : items.filter((i) => i.type === tab);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>, itemName: string) => {
     const fallback = getCategoryImage(itemName);
-    if (e.currentTarget.src !== fallback) {
+    if (e.currentTarget.src !== fallback && e.currentTarget.src !== FALLBACK_IMAGE) {
       e.currentTarget.src = fallback;
+    } else {
+      e.currentTarget.src = FALLBACK_IMAGE;
     }
   };
 
@@ -54,7 +52,6 @@ const LostFoundModule = () => {
       <h2 className="text-2xl font-bold text-foreground">🔎 Lost & Found</h2>
       <p className="text-primary/70 text-sm font-light mt-1 mb-6">Kho gaye hum kahan?</p>
 
-      {/* Tabs */}
       <div className="flex gap-2 mb-6">
         {(["all", "lost", "found"] as Tab[]).map((t) => (
           <button
@@ -69,7 +66,6 @@ const LostFoundModule = () => {
         ))}
       </div>
 
-      {/* Items */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((item, i) => (
           <motion.div
@@ -81,7 +77,7 @@ const LostFoundModule = () => {
           >
             <div className="h-[220px] w-full overflow-hidden rounded-t-xl">
               <img
-                src={item.image}
+                src={item.image || getCategoryImage(item.name)}
                 alt={item.name}
                 className="w-full h-full object-cover object-center block"
                 onError={(e) => handleImageError(e, item.name)}
